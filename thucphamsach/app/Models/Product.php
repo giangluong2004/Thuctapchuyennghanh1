@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $table = 'products';
 
-  protected $fillabel=['id','name'];
+ protected $fillable = ['name'];
        
     
 }

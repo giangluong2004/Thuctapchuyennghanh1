@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\admin\LoginController;
 
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ProductController;
@@ -54,10 +54,11 @@ Route::get('/welcome', function () {
 
 
 ///////////////////////////////////////////
-Route::get('/admin/category', [CategoryController::class, 'index'])->name('category');
-
-Route::get('/admin/product', [ProductController::class, 'index'])->name('product');
-
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('dashboard', LoginController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);  
+});
 Route::get('/admin', function () {
     return view('admin/index');
 })->name('admin');
